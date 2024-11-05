@@ -31,6 +31,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function setOperation(op) {
+        
         if (op === '÷') {
             currentOperation = '/';
         } else if (op === 'x' || op === '×') {
@@ -47,8 +48,12 @@ document.addEventListener('DOMContentLoaded', function() {
         const num1 = parseFloat(input1.value);
         const num2 = parseFloat(input2.value);
 
+        if (input1.value.trim() === '' || input2.value.trim() === '') {
+            errorDisplay.textContent = 'Помилка: обидва поля повинні бути заповнені.';
+            return;
+        }
         if (isNaN(num1) || isNaN(num2)) {
-            errorDisplay.textContent = 'Помилка: введіть обидва числа.';
+            errorDisplay.textContent = 'Помилка: введіть коректні числа в обидва поля.';
             return;
         }
         if (currentOperation === null) {
@@ -82,7 +87,6 @@ document.addEventListener('DOMContentLoaded', function() {
         errorDisplay.textContent = ''; 
     }
 
-    
     function clearInputs() {
         input1.value = '';
         input2.value = '';
@@ -102,7 +106,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     document.querySelector('.equals').addEventListener('click', calculateResult);
     document.querySelector('.clear').addEventListener('click', clearInputs);
-
 
     input1.addEventListener('focus', () => setActiveInput(input1));
     input2.addEventListener('focus', () => setActiveInput(input2));
